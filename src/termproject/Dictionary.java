@@ -11,7 +11,7 @@ package termproject;
  * Description: Abstraction for Dictionary ADT.  Works for either ordered
  * or unordered dictionary
  */
-
+//first commit
 public interface Dictionary {
 
     public int size();
