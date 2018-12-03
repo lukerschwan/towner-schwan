@@ -6,7 +6,8 @@ package termproject;
  * Copyright:    Copyright (c) 2001
  * Company:
  * @author
- * @version 1.0
+ * @version 1.
+ * testCommit
  */
 
 public interface Comparator {
