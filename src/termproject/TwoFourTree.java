@@ -41,9 +41,29 @@ public class TwoFourTree
      * @return object corresponding to key; null if not found
      */
     public Object findElement(Object key) {
+        TFNode currNode = root();
+        while(currNode != null){
+            boolean reset = false;
+            for(int i = 0; i < currNode.getNumItems() && reset == false; i++){
+                //find first equal
+                if(treeComp.isEqual(currNode.getItem(i).key(), key)){ 
+                    return currNode.getItem(i).element();
+                }
+                //find first greater than
+                else if (treeComp.isGreaterThan(currNode.getItem(i).key(), key)){ 
+                    currNode = currNode.getChild(i);
+                    reset = true;
+                }
+                //key is bigger than any in the node -> get last child
+                else{
+                    currNode = currNode.getChild(i+1);
+                    reset = true;
+                }
+            }
+        }
         return null;
     }
-
+ 
     /**
      * Inserts provided element into the Dictionary
      * @param key of object to be inserted
