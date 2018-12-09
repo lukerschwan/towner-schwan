@@ -63,15 +63,21 @@ public class TwoFourTree
      * @param element to be inserted
      */
     public void insertElement(Object key, Object element) {
-        //if the tree is empty
+        
         Item temp = new Item(key, element);
         TFNode node = new TFNode();
-        int index;
-            //else
+        int index = 0;
+        //if the tree is empty
+        if (root() == null) {
+            node.addItem(index, temp);
+            setRoot(node);
+        }
+        //go till we find the right external node
         while(root() != null && node.isExternal()){
             index =node.FFGTE(key, treeComp);
             node = node.getChild(index);
         }
+        //actually insert item into the node
         index = node.FFGTE(key, treeComp);
         if(index < node.getNumItems()){
             node.insertItem(index, temp);
@@ -79,26 +85,29 @@ public class TwoFourTree
         else{
             node.addItem(index, temp);
         }
-        //fix overflow
+        //fix overflow if it exists
         fixOverflow(node);
-        //
+        
+
+            //
                 //perform FFGTOE
                 //determine if shifting insert is needed
                 //perform insert
                 //Check overflow if it gets too big
                     //perform split algorithm 
                 //return u good homie
-        if (root() == null) {
-            node.insertItem(0, temp);
-            setRoot(node);
-        }
+                
+        
     }
     private void fixOverflow(TFNode node){
-        if(node.getNumItems() > node.getMaxItems()){
+        //base case - if we are not in overflow
+        if(node.getNumItems() < node.getMaxItems()){
             return;
         }
+        
         Item middle = node.getItem(1);
         TFNode split = new TFNode();
+        //root overflow case
         if(node == root()){
             TFNode newRoot = new TFNode();
             newRoot.addItem(0, middle);
@@ -113,8 +122,9 @@ public class TwoFourTree
             for(int i = 0; i < 2; i++){
                 node.setChild(i, node.getChild(i+1));
             }
-            return;
         }
+        //general overflow case
+        
         
     }
 

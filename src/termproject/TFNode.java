@@ -146,4 +146,8 @@ public class TFNode {
         }
         return i;
     }
+    public int whatChildIsThis(TFNode child){
+        //TODO: write this method
+        return 0;
+    }
 }
