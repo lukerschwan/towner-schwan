@@ -43,26 +43,22 @@ public class TwoFourTree
     public Object findElement(Object key) {
         TFNode currNode = root();
         while(currNode != null){
-            boolean reset = false;
-            for(int i = 0; i < currNode.getNumItems() && reset == false; i++){
-                //find first equal
-                if(treeComp.isEqual(currNode.getItem(i).key(), key)){ 
-                    return currNode.getItem(i).element();
-                }
-                //find first greater than
-                else if (treeComp.isGreaterThan(currNode.getItem(i).key(), key)){ 
-                    currNode = currNode.getChild(i);
-                    reset = true;
-                }
-                //key is bigger than any in the node -> get last child
-                else{
-                    currNode = currNode.getChild(i+1);
-                    reset = true;
-                }
-            }
+            //index is the first greater than equal index
+           int index = currNode.FFGTE(key, treeComp);
+           //if the element is equal to key then return the node's item's element
+           if(treeComp.isEqual(currNode.getItem(index),key)){
+               return currNode.getItem(index).element();
+           }
+           else if(treeComp.isLessThan(key,currNode.getItem(index).key())){
+               currNode = currNode.getChild(index);
+           }
+           else{
+               currNode=currNode.getChild(index+1);
+           }
         }
         return null;
     }
+    
  
     /**
      * Inserts provided element into the Dictionary
@@ -70,6 +66,20 @@ public class TwoFourTree
      * @param element to be inserted
      */
     public void insertElement(Object key, Object element) {
+        //if the tree is empty
+        Item temp = new Item(key, element);
+        TFNode node = new TFNode();
+        if(isEmpty()){
+            node.insertItem(0, temp);
+            setRoot(node);
+        }
+            //else
+                //perform FFGTOE
+                //determine if shifting insert is needed
+                //perform insert
+                //Check overflow if it gets too big
+                    //perform split algorithm 
+                //return u good homie
     }
 
     /**

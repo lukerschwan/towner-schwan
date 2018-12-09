@@ -133,4 +133,13 @@ public class TFNode {
             throw new TFNodeException();
         nodeChildren[index] = child;
     }
+    public int FFGTE(Object key, Comparator treeComp){
+        int i = 0;
+        for(; i < numItems; i++){
+            if(treeComp.isGreaterThanOrEqualTo(getItem(i).key(), key)){
+                break;
+            }
+        }
+        return i;
+    }
 }
