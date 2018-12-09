@@ -49,11 +49,8 @@ public class TwoFourTree
            if(treeComp.isEqual(currNode.getItem(index),key)){
                return currNode.getItem(index).element();
            }
-           else if(treeComp.isLessThan(key,currNode.getItem(index).key())){
+           else {
                currNode = currNode.getChild(index);
-           }
-           else{
-               currNode=currNode.getChild(index+1);
            }
         }
         return null;
@@ -69,17 +66,21 @@ public class TwoFourTree
         //if the tree is empty
         Item temp = new Item(key, element);
         TFNode node = new TFNode();
-        if(isEmpty()){
-            node.insertItem(0, temp);
-            setRoot(node);
-        }
             //else
+        while(node!= null){
+            int index =node.FFGTE(key, treeComp);
+            
+        }
                 //perform FFGTOE
                 //determine if shifting insert is needed
                 //perform insert
                 //Check overflow if it gets too big
                     //perform split algorithm 
                 //return u good homie
+        if (isEmpty()) {
+            node.insertItem(0, temp);
+            setRoot(node);
+        }
     }
 
     /**

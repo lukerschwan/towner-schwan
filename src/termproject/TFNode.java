@@ -133,6 +133,10 @@ public class TFNode {
             throw new TFNodeException();
         nodeChildren[index] = child;
     }
+    public boolean isExternal(){
+        return (this.getChild(0)==null);
+ 
+    }
     public int FFGTE(Object key, Comparator treeComp){
         int i = 0;
         for(; i < numItems; i++){
