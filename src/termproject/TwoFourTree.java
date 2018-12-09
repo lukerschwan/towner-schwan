@@ -109,14 +109,13 @@ public class TwoFourTree
             //fix pointers
             newRoot.setChild(0, split);
             newRoot.setChild(1, node);
-            for(int i = 0; i < 3; i++){
-                
+            split.setChild(1, node.getChild(1));
+            for(int i = 0; i < 2; i++){
+                node.setChild(i, node.getChild(i+1));
             }
-            split.setChild(0, node.getChild(0));
-            node.setChild(0, node.getChild(1));
-            
             return;
         }
+        
     }
 
     /**
