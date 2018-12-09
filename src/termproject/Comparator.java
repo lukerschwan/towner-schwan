@@ -6,7 +6,7 @@ package termproject;
  * Copyright:    Copyright (c) 2001
  * Company:
  * @author
- * @version 1.
+ * @version 1.0
  * testCommit
  */
 

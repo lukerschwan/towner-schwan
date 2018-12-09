@@ -66,20 +66,56 @@ public class TwoFourTree
         //if the tree is empty
         Item temp = new Item(key, element);
         TFNode node = new TFNode();
+        int index;
             //else
-        while(node!= null){
-            int index =node.FFGTE(key, treeComp);
-            
+        while(root() != null && node.isExternal()){
+            index =node.FFGTE(key, treeComp);
+            node = node.getChild(index);
         }
+        index = node.FFGTE(key, treeComp);
+        if(index < node.getNumItems()){
+            node.insertItem(index, temp);
+        }
+        else{
+            node.addItem(index, temp);
+        }
+        //fix overflow
+        fixOverflow(node);
+        //
                 //perform FFGTOE
                 //determine if shifting insert is needed
                 //perform insert
                 //Check overflow if it gets too big
                     //perform split algorithm 
                 //return u good homie
-        if (isEmpty()) {
+        if (root() == null) {
             node.insertItem(0, temp);
             setRoot(node);
+        }
+    }
+    private void fixOverflow(TFNode node){
+        if(node.getNumItems() > node.getMaxItems()){
+            return;
+        }
+        Item middle = node.getItem(1);
+        TFNode split = new TFNode();
+        if(node == root()){
+            TFNode newRoot = new TFNode();
+            newRoot.addItem(0, middle);
+            setRoot(newRoot);
+            node.removeItem(1);
+            split.addItem(0, node.getItem(0));
+            node.removeItem(0);
+            //fix pointers
+            newRoot.setChild(0, split);
+            newRoot.setChild(1, node);
+            for(int i = 0; i < 3; i++){
+                
+            }
+            split.setChild(0, node.getChild(0));
+            node.setChild(0, node.getChild(1));
+            
+            return;
         }
     }
 
