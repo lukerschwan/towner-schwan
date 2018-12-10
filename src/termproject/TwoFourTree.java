@@ -105,7 +105,7 @@ public class TwoFourTree
     }
     private void fixOverflow(TFNode node){
         //base case - if we are not in overflow
-        if(node.getNumItems() < node.getMaxItems()){
+        if(node.getNumItems() <= node.getMaxItems()){
             return;
         }
         
