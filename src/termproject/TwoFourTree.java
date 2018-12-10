@@ -100,6 +100,10 @@ public class TwoFourTree
         
     }
     private void fixOverflow(TFNode node){
+        //TODO: make a subroutine for fixing pointers to eliminate duplicated code
+        
+        
+        
         //base case - if we are not in overflow
         if(node.getNumItems() < node.getMaxItems()){
             return;
@@ -122,10 +126,27 @@ public class TwoFourTree
             for(int i = 0; i < 2; i++){
                 node.setChild(i, node.getChild(i+1));
             }
+            return;
         }
         //general overflow case
-        
-        
+        else{
+            //insert into parent node at proper location
+            int index = node.whatChildIsThis();
+            node.getParent().insertItem(index, middle);
+            node.removeItem(1);
+            //split node
+            split.addItem(0, node.getItem(0));
+            node.removeItem(0);
+            //hook up pointers
+            node.getParent().setChild(index, split);
+            node.getParent().setChild(index + 1, node);
+            split.setChild(0, node.getChild(0));
+            for(int i = 0; i < node.getNumItems(); i++){
+                node.setChild(i, node.getChild(i+1));
+            }
+        }
+        //recurse with parent
+        fixOverflow(node.getParent());
     }
 
     /**
