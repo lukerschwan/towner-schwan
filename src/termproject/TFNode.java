@@ -38,6 +38,7 @@ public class TFNode {
     public int getMaxItems() {
         return MAX_ITEMS;
     }
+    
 
     public TFNode getParent() {
         return nodeParent;
@@ -162,6 +163,12 @@ public class TFNode {
         //returns null if does not exist
         return this;
     }
-    
+    public int getNumChildren(){
+        int num = 0;
+        while(nodeChildren.length > num && nodeChildren[num] != null){
+            num++;
+        }
+        return num;
+    }
     
 }
