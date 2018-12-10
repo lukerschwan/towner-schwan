@@ -154,6 +154,7 @@ public class TwoFourTree
         //parent pointers
         split.setParent(parent);
         node.setParent(parent);
+        
     }
 
     /**
