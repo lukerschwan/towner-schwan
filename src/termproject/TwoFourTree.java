@@ -65,29 +65,32 @@ public class TwoFourTree
     public void insertElement(Object key, Object element) {
         
         Item temp = new Item(key, element);
-        TFNode node = new TFNode();
+        TFNode node = this.root();
         int index = 0;
         //if the tree is empty
-        if (root() == null) {
+        if (node == null) {
+            node = new TFNode();
             node.addItem(index, temp);
             setRoot(node);
         }
-        //go till we find the right external node
-        while(root() != null && node.isExternal()){
-            index =node.FFGTE(key, treeComp);
-            node = node.getChild(index);
+        else {
+            //go till we find the right external node
+            while(!node.isExternal()){
+                index =node.FFGTE(key, treeComp);
+                node = node.getChild(index);
+            }
+            //actually insert item into the node
+            index = node.FFGTE(key, treeComp);
+            if(index < node.getNumItems()){
+                node.insertItem(index, temp);
+            }
+            else{
+                node.addItem(index, temp);
+            }
+            //fix overflow if it exists
+            fixOverflow(node);
+            
         }
-        //actually insert item into the node
-        index = node.FFGTE(key, treeComp);
-        if(index < node.getNumItems()){
-            node.insertItem(index, temp);
-        }
-        else{
-            node.addItem(index, temp);
-        }
-        //fix overflow if it exists
-        fixOverflow(node);
-        
 
             //
                 //perform FFGTOE
@@ -105,7 +108,7 @@ public class TwoFourTree
         
         
         //base case - if we are not in overflow
-        if(node.getNumItems() < node.getMaxItems()){
+        if(node.getNumItems() <= node.getMaxItems()){
             return;
         }
         
@@ -139,13 +142,16 @@ public class TwoFourTree
         node.removeItem(1);
         split.addItem(0, node.getItem(0));
         node.removeItem(0);
-        //pointers
+        //pointers children
         parent.setChild(index, split);
         parent.setChild(index + 1, node);
         split.setChild(0, node.getChild(0));
         for(int i = 0; i < node.getNumItems(); i++){
             node.setChild(i, node.getChild(i+1));
         }
+        //parent pointers
+        split.setParent(parent);
+        node.setParent(parent);
     }
 
     /**
@@ -241,8 +247,9 @@ public class TwoFourTree
                 myTree.printAllElements();
             }
         }
-        */
+        
         System.out.println("done");
+        */
     }
 
     public void printAllElements() {
