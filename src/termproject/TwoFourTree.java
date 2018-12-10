@@ -258,6 +258,52 @@ public class TwoFourTree
         }
     }
 
+    public void fixUnderflow(TFNode underNode){
+        //base case
+        if(underNode.getNumItems()>0){
+            return;
+        }
+        //it is a assumed that there has been an underflow at this point
+        //if the root was removed from this should not be entered
+        if(leftTransferPossible(underNode)){
+            leftTransfer(underNode);
+        }
+        else if(rightTransferPossible(underNode)){
+            rightTransfer(underNode);
+        }
+        else if(rightFusionPossible(underNode)){
+            rightFusion(underNode);
+        }
+        else{
+            leftFusion(underNode);
+        }
+    }
+    //TODO
+    //write a left and right sib getter
+    //write a getter to list the number of elements in a node
+    
+    public boolean leftTransferPossible(TFNode current){
+        //get size of left sibling node
+        //if the size of the left sibling node is less than 2
+        // return true
+        //else return false
+    }
+    public boolean rightTransferPossible(TFNode current){
+        //check to see if the right sib exists and is less than 2
+       
+    }
+    public boolean rightFusionPossible(TFNode current){
+        
+        
+    }
+    public boolean leftFusionPossible(TFNode current){
+        
+    }
+    
+    
+    
+   
+    
     public void printTree(TFNode start, int indent) {
         if (start == null) {
             return;
