@@ -65,29 +65,32 @@ public class TwoFourTree
     public void insertElement(Object key, Object element) {
         
         Item temp = new Item(key, element);
-        TFNode node = new TFNode();
+        TFNode node = this.root();
         int index = 0;
         //if the tree is empty
-        if (root() == null) {
+        if (node == null) {
+            node = new TFNode();
             node.addItem(index, temp);
             setRoot(node);
         }
-        //go till we find the right external node
-        while(root() != null && node.isExternal()){
-            index =node.FFGTE(key, treeComp);
-            node = node.getChild(index);
+        else {
+            //go till we find the right external node
+            while(!node.isExternal()){
+                index =node.FFGTE(key, treeComp);
+                node = node.getChild(index);
+            }
+            //actually insert item into the node
+            index = node.FFGTE(key, treeComp);
+            if(index < node.getNumItems()){
+                node.insertItem(index, temp);
+            }
+            else{
+                node.addItem(index, temp);
+            }
+            //fix overflow if it exists
+            fixOverflow(node);
+            
         }
-        //actually insert item into the node
-        index = node.FFGTE(key, treeComp);
-        if(index < node.getNumItems()){
-            node.insertItem(index, temp);
-        }
-        else{
-            node.addItem(index, temp);
-        }
-        //fix overflow if it exists
-        fixOverflow(node);
-        
 
             //
                 //perform FFGTOE
@@ -112,24 +115,39 @@ public class TwoFourTree
             TFNode newRoot = new TFNode();
             newRoot.addItem(0, middle);
             setRoot(newRoot);
-            node.removeItem(1);
-            split.addItem(0, node.getItem(0));
-            node.removeItem(0);
-            //fix pointers
-            newRoot.setChild(0, split);
-            newRoot.setChild(1, node);
-            split.setChild(1, node.getChild(1));
-            for(int i = 0; i < 2; i++){
-                node.setChild(i, node.getChild(i+1));
-            }
+            
+            //split and fix pointers
+            fixSplit(newRoot, node, split, 0);
+            return;
         }
-        //the node is in overflow
-        //send the second item to the parent node
-        TFNode parent = middle.getParent();
-        
         //general overflow case
-        
-        
+        else{
+            //insert into parent node at proper location
+            int index = node.whatChildIsThis();
+            node.getParent().insertItem(index, middle);
+            //split node and hook up pointers
+            fixSplit(node.getParent(), node, split, index);
+            
+        }
+        //recurse with parent
+        fixOverflow(node.getParent());
+    }
+    
+    private void fixSplit(TFNode parent, TFNode node, TFNode split, int index){
+        //split data
+        node.removeItem(1);
+        split.addItem(0, node.getItem(0));
+        node.removeItem(0);
+        //pointers children
+        parent.setChild(index, split);
+        parent.setChild(index + 1, node);
+        split.setChild(0, node.getChild(0));
+        for(int i = 0; i < node.getNumItems(); i++){
+            node.setChild(i, node.getChild(i+1));
+        }
+        //parent pointers
+        split.setParent(parent);
+        node.setParent(parent);
     }
 
     /**
@@ -205,6 +223,7 @@ public class TwoFourTree
         myTree.printAllElements();
         System.out.println("done");
 
+        /*
         myTree = new TwoFourTree(myComp);
         final int TEST_SIZE = 10000;
 
@@ -224,7 +243,9 @@ public class TwoFourTree
                 myTree.printAllElements();
             }
         }
+        
         System.out.println("done");
+        */
     }
 
     public void printAllElements() {

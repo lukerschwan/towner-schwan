@@ -146,8 +146,15 @@ public class TFNode {
         }
         return i;
     }
-    public int whatChildIsThis(TFNode child){
-        //TODO: write this method
-        return 0;
+    public int whatChildIsThis(){
+        int index = 0;
+        for(; this.nodeChildren[index] != null; index++){ 
+            //TODO: might access null data in other methods if used.  WATCH!
+            
+            if(this == this.getParent().getChild(index)){
+                break;
+            }
+        }
+        return index;
     }
 }
