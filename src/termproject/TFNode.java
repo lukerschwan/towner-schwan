@@ -148,12 +148,8 @@ public class TFNode {
     }
     public int whatChildIsThis(){
         int index = 0;
-        for(; this.nodeChildren[index] != null; index++){ 
-            //TODO: might access null data in other methods if used.  WATCH!
-            
-            if(this == this.getParent().getChild(index)){
-                break;
-            }
+        while(this.getParent().getChild(index) != this){
+            index++;
         }
         return index;
     }
