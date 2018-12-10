@@ -282,27 +282,39 @@ public class TwoFourTree
     }
     //TODO
     //write a left and right sib getter
-    //write a getter to list the number of elements in a node
+   
     
     public boolean leftTransferPossible(TFNode current){
         //get size of left sibling node
         //if the size of the left sibling node is less than 2
         // return true
         //else return false
+        return false;
     }
     public boolean rightTransferPossible(TFNode current){
         //check to see if the right sib exists and is less than 2
-       
+       return false;
     }
     public boolean rightFusionPossible(TFNode current){
         
-        
+       return false; 
     }
     public boolean leftFusionPossible(TFNode current){
-        
+        return false;
     }
     
-    
+    public void leftTransfer(TFNode node){
+        
+    }
+    public void rightTransfer(TFNode node){
+        
+    }
+    public void rightFusion(TFNode node){
+        
+    }
+    public void leftFusion(TFNode node){
+        
+    }
     
    
     
