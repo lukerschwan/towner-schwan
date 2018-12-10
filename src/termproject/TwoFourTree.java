@@ -72,6 +72,7 @@ public class TwoFourTree
             node = new TFNode();
             node.addItem(index, temp);
             setRoot(node);
+            size++;
         }
         else {
             //go till we find the right external node
@@ -114,6 +115,7 @@ public class TwoFourTree
         
         Item middle = node.getItem(1);
         TFNode split = new TFNode();
+        size++;
         //root overflow case
         if(node == root()){
             TFNode newRoot = new TFNode();
