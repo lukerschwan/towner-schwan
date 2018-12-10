@@ -179,10 +179,12 @@ public class TwoFourTree
 
         Integer myInt5 = new Integer(49);
         myTree.insertElement(myInt5, myInt5);
-
+        myTree.printAllElements();
+        
         Integer myInt6 = new Integer(100);
         myTree.insertElement(myInt6, myInt6);
-
+        myTree.checkTree();
+        myTree.printAllElements();
         Integer myInt7 = new Integer(38);
         myTree.insertElement(myInt7, myInt7);
 
@@ -194,9 +196,10 @@ public class TwoFourTree
 
         Integer myInt10 = new Integer(66);
         myTree.insertElement(myInt10, myInt10);
-
+        myTree.printAllElements();
         Integer myInt11 = new Integer(19);
         myTree.insertElement(myInt11, myInt11);
+
 
         Integer myInt12 = new Integer(23);
         myTree.insertElement(myInt12, myInt12);
