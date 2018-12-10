@@ -123,6 +123,10 @@ public class TwoFourTree
                 node.setChild(i, node.getChild(i+1));
             }
         }
+        //the node is in overflow
+        //send the second item to the parent node
+        TFNode parent = middle.getParent();
+        
         //general overflow case
         
         
