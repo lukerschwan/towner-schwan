@@ -153,4 +153,15 @@ public class TFNode {
         }
         return index;
     }
+    //TODO
+    public TFNode getLeftSib(){
+        //returns null if does not exist
+        return this;
+    }
+    public TFNode getRightSib(){
+        //returns null if does not exist
+        return this;
+    }
+    
+    
 }

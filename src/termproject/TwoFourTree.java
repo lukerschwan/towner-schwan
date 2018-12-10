@@ -104,10 +104,6 @@ public class TwoFourTree
         
     }
     private void fixOverflow(TFNode node){
-        //TODO: make a subroutine for fixing pointers to eliminate duplicated code
-        
-        
-        
         //base case - if we are not in overflow
         if(node.getNumItems() <= node.getMaxItems()){
             return;
@@ -184,10 +180,12 @@ public class TwoFourTree
 
         Integer myInt5 = new Integer(49);
         myTree.insertElement(myInt5, myInt5);
-
+        myTree.printAllElements();
+        
         Integer myInt6 = new Integer(100);
         myTree.insertElement(myInt6, myInt6);
-
+        myTree.checkTree();
+        myTree.printAllElements();
         Integer myInt7 = new Integer(38);
         myTree.insertElement(myInt7, myInt7);
 
@@ -199,9 +197,10 @@ public class TwoFourTree
 
         Integer myInt10 = new Integer(66);
         myTree.insertElement(myInt10, myInt10);
-
+        myTree.printAllElements();
         Integer myInt11 = new Integer(19);
         myTree.insertElement(myInt11, myInt11);
+
 
         Integer myInt12 = new Integer(23);
         myTree.insertElement(myInt12, myInt12);
@@ -265,6 +264,64 @@ public class TwoFourTree
         }
     }
 
+    public void fixUnderflow(TFNode underNode){
+        //base case
+        if(underNode.getNumItems()>0){
+            return;
+        }
+        //it is a assumed that there has been an underflow at this point
+        //if the root was removed from this should not be entered
+        if(leftTransferPossible(underNode)){
+            leftTransfer(underNode);
+        }
+        else if(rightTransferPossible(underNode)){
+            rightTransfer(underNode);
+        }
+        else if(rightFusionPossible(underNode)){
+            rightFusion(underNode);
+        }
+        else{
+            leftFusion(underNode);
+        }
+    }
+    //TODO
+    //write a left and right sib getter
+   
+    
+    public boolean leftTransferPossible(TFNode current){
+        //get size of left sibling node
+        //if the size of the left sibling node is less than 2
+        // return true
+        //else return false
+        return false;
+    }
+    public boolean rightTransferPossible(TFNode current){
+        //check to see if the right sib exists and is less than 2
+       return false;
+    }
+    public boolean rightFusionPossible(TFNode current){
+        
+       return false; 
+    }
+    public boolean leftFusionPossible(TFNode current){
+        return false;
+    }
+    
+    public void leftTransfer(TFNode node){
+        
+    }
+    public void rightTransfer(TFNode node){
+        
+    }
+    public void rightFusion(TFNode node){
+        
+    }
+    public void leftFusion(TFNode node){
+        
+    }
+    
+   
+    
     public void printTree(TFNode start, int indent) {
         if (start == null) {
             return;
