@@ -116,16 +116,9 @@ public class TwoFourTree
             TFNode newRoot = new TFNode();
             newRoot.addItem(0, middle);
             setRoot(newRoot);
-            node.removeItem(1);
-            split.addItem(0, node.getItem(0));
-            node.removeItem(0);
-            //fix pointers
-            newRoot.setChild(0, split);
-            newRoot.setChild(1, node);
-            split.setChild(1, node.getChild(1));
-            for(int i = 0; i < 2; i++){
-                node.setChild(i, node.getChild(i+1));
-            }
+            
+            //split and fix pointers
+            fixSplit(newRoot, node, split, 0);
             return;
         }
         //general overflow case
@@ -133,20 +126,26 @@ public class TwoFourTree
             //insert into parent node at proper location
             int index = node.whatChildIsThis();
             node.getParent().insertItem(index, middle);
-            node.removeItem(1);
-            //split node
-            split.addItem(0, node.getItem(0));
-            node.removeItem(0);
-            //hook up pointers
-            node.getParent().setChild(index, split);
-            node.getParent().setChild(index + 1, node);
-            split.setChild(0, node.getChild(0));
-            for(int i = 0; i < node.getNumItems(); i++){
-                node.setChild(i, node.getChild(i+1));
-            }
+            //split node and hook up pointers
+            fixSplit(node.getParent(), node, split, index);
+            
         }
         //recurse with parent
         fixOverflow(node.getParent());
+    }
+    
+    private void fixSplit(TFNode parent, TFNode node, TFNode split, int index){
+        //split data
+        node.removeItem(1);
+        split.addItem(0, node.getItem(0));
+        node.removeItem(0);
+        //pointers
+        parent.setChild(index, split);
+        parent.setChild(index + 1, node);
+        split.setChild(0, node.getChild(0));
+        for(int i = 0; i < node.getNumItems(); i++){
+            node.setChild(i, node.getChild(i+1));
+        }
     }
 
     /**
@@ -222,6 +221,7 @@ public class TwoFourTree
         myTree.printAllElements();
         System.out.println("done");
 
+        /*
         myTree = new TwoFourTree(myComp);
         final int TEST_SIZE = 10000;
 
@@ -241,6 +241,7 @@ public class TwoFourTree
                 myTree.printAllElements();
             }
         }
+        */
         System.out.println("done");
     }
 
