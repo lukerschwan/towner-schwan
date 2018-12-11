@@ -110,14 +110,14 @@ public class TwoFourTree
         }
         
         Item middle = node.getItem(1);
-        TFNode split = new TFNode();
+         TFNode split = new TFNode();
         size++;
         //root overflow case
         if(node == root()){
             TFNode newRoot = new TFNode();
             newRoot.addItem(0, middle);
             setRoot(newRoot);
-            
+            size++;
             //split and fix pointers
             fixSplit(newRoot, node, split, 0);
             return;
@@ -137,24 +137,21 @@ public class TwoFourTree
     
     private void fixSplit(TFNode parent, TFNode node, TFNode split, int index){
         //split data
-        node.removeItem(1);
         split.addItem(0, node.getItem(0));
-        node.removeItem(0);
         //parent's children pointers
         parent.setChild(index, split);
         parent.setChild(index + 1, node);
-        //set split's children
+        //move child pointers from node to split
         for(int i = 0; i < 2; i++){
-            split.setChild(i, node.getChild(i));
-        }
-        //set node's children
-        for(int i = 0; i < node.getNumItems() - 1; i++){
-            node.setChild(i, node.getChild(i + 2)); // need to null last array pointers
+            split.setChild(i, node.getChild(0));
+            if(node.getChild(0) != null){
+                node.getChild(0).setParent(split);
+            }
+            node.removeItem(0);
         }
         //parent pointers
         split.setParent(parent);
         node.setParent(parent);
-        
     }
 
     /**
@@ -210,8 +207,6 @@ public class TwoFourTree
         
         Integer myInt13 = new Integer(24);
         myTree.insertElement(myInt13, myInt13);
-        
-        myTree.printAllElements();
 
         Integer myInt14 = new Integer(88);
         myTree.insertElement(myInt14, myInt14);
@@ -231,7 +226,7 @@ public class TwoFourTree
         Integer myInt19 = new Integer(51);
         myTree.insertElement(myInt19, myInt19);
 
-        //myTree.printAllElements();
+        myTree.printAllElements();
         System.out.println("done");
 
         /*
