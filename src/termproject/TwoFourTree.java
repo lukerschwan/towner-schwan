@@ -77,7 +77,20 @@ public class TwoFourTree
         else {
             //go till we find the right external node
             while(!node.isExternal()){
-                index =node.FFGTE(key, treeComp);
+                index = node.FFGTE(key, treeComp);
+                //check for tie case
+                if(treeComp.isEqual(key, node.getItem(index).key())){
+                    //node = node.getInorderSuccessor(index);
+                    //break;
+                    /*
+                    
+                    TFNode inOrderSuccessor = this.getChild(index + 1);
+                        while(!this.isExternal()){
+                            inOrderSuccessor = inOrderSuccessor.getChild(this.FFGTE(index, treeComp));
+                        }
+                        return inOrderSuccessor;
+                    */
+                }
                 node = node.getChild(index);
             }
             //actually insert item into the node
@@ -92,16 +105,6 @@ public class TwoFourTree
             fixOverflow(node);
             
         }
-
-            //
-                //perform FFGTOE
-                //determine if shifting insert is needed
-                //perform insert
-                //Check overflow if it gets too big
-                    //perform split algorithm 
-                //return u good homie
-                
-        
     }
     private void fixOverflow(TFNode node){
         //base case - if we are not in overflow
@@ -225,6 +228,11 @@ public class TwoFourTree
 
         Integer myInt19 = new Integer(51);
         myTree.insertElement(myInt19, myInt19);
+        
+        Integer myInt20 = new Integer(24);
+        myTree.insertElement(myInt20, myInt20);
+        Integer myInt21 = new Integer(24);
+        myTree.insertElement(myInt21, myInt21);
 
         myTree.printAllElements();
         System.out.println("done");
