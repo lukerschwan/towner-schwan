@@ -156,12 +156,25 @@ public class TFNode {
     }
     //TODO
     public TFNode getLeftSib(){
-        //returns null if does not exist
-        return this;
+         //make sure that the parent is not null
+        if(this.getParent()==null){
+            return null;
+        }
+        else{
+            //return the child of the parent at the index of the current minus one
+            return(this.getParent().getChild(this.whatChildIsThis()-1));
+        }
     }
     public TFNode getRightSib(){
+        //make sure that the parent is not null
+        if(this.getParent()==null){
+            return null;
+        }
+        else{
+         //return the child of the current parent minus one
+         return(this.getParent().getChild(this.whatChildIsThis()+1));
+        }
         //returns null if does not exist
-        return this;
     }
     public int getNumChildren(){
         int num = 0;

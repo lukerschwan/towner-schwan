@@ -290,13 +290,16 @@ public class TwoFourTree
     
     public boolean leftTransferPossible(TFNode current){
         //get size of left sibling node
-        //if the size of the left sibling node is less than 2
+        TFNode sib  = current.getLeftSib();
+        int size = sib.getNumItems();
+        //if the size of the left sibling node is not going to overflow with 2
+        return ((size+1)==sib.getMaxItems());
         // return true
         //else return false
-        return false;
     }
     public boolean rightTransferPossible(TFNode current){
         //check to see if the right sib exists and is less than 2
+       
        return false;
     }
     public boolean rightFusionPossible(TFNode current){
