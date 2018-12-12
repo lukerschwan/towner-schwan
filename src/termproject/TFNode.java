@@ -167,7 +167,8 @@ public class TFNode {
     }
     public TFNode getRightSib(){
         //make sure that the parent is not null
-        if(this.getParent()==null){
+        //make sure that this is not the rigthmost node allready 
+        if(this.getParent()==null || this.getParent().whatChildIsThis()+1>this.getMaxItems()){
             return null;
         }
         else{
