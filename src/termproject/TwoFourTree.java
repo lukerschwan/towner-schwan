@@ -79,12 +79,11 @@ public class TwoFourTree
             while(!node.isExternal()){
                 index = node.FFGTE(key, treeComp);
                 //check for tie case
-                if(treeComp.isEqual(key, node.getItem(index).key())){
+                if(index != node.getNumItems() && 
+                        treeComp.isEqual(key, node.getItem(index).key())){
                     index++;
                 }
-                else{
                 node = node.getChild(index);
-                }
             }
             //actually insert item into the node
             index = node.FFGTE(key, treeComp);
@@ -125,7 +124,6 @@ public class TwoFourTree
             node.getParent().insertItem(index, middle);
             //split node and hook up pointers
             fixSplit(node.getParent(), node, split, index);
-            
         }
         //recurse with parent
         fixOverflow(node.getParent());
@@ -174,8 +172,6 @@ public class TwoFourTree
 
         Integer myInt4 = new Integer(16);
         myTree.insertElement(myInt4, myInt4);
-        
-        myTree.printAllElements();
 
         Integer myInt5 = new Integer(49);
         myTree.insertElement(myInt5, myInt5);
@@ -228,6 +224,9 @@ public class TwoFourTree
         myTree.insertElement(myInt20, myInt20);
         Integer myInt21 = new Integer(24);
         myTree.insertElement(myInt21, myInt21);
+        
+        Integer myInt22 = new Integer(49);
+        myTree.insertElement(myInt22, myInt22);
 
         myTree.printAllElements();
         System.out.println("done");
