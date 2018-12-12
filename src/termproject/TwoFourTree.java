@@ -1,5 +1,7 @@
 package termproject;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * Title:        Term Project 2-4 Trees
  * Description:
@@ -156,6 +158,15 @@ public class TwoFourTree
      * @exception ElementNotFoundException if the key is not in dictionary
      */
     public Object removeElement(Object key) throws ElementNotFoundException {
+        //find the element
+        TFNode element= (TFNode)findElement(key);
+        
+        if(element.FFGTE(key, treeComp)-1>=0){
+           Item returnableItem = new Item();
+           returnableItem = element.removeItem(element.FFGTE(key, treeComp)-1);
+           fixUnderflow(element);
+           return returnableItem;
+        }
         return null;
     }
 
@@ -163,73 +174,90 @@ public class TwoFourTree
         Comparator myComp = new IntegerComparator();
         TwoFourTree myTree = new TwoFourTree(myComp);
 
-        Integer myInt1 = new Integer(47);
-        myTree.insertElement(myInt1, myInt1);
-        Integer myInt2 = new Integer(83);
-        myTree.insertElement(myInt2, myInt2);
-        Integer myInt3 = new Integer(22);
-        myTree.insertElement(myInt3, myInt3);
-
-        Integer myInt4 = new Integer(16);
-        myTree.insertElement(myInt4, myInt4);
-
-        Integer myInt5 = new Integer(49);
-        myTree.insertElement(myInt5, myInt5);
-        
-
-        
-        Integer myInt6 = new Integer(100);
-        myTree.insertElement(myInt6, myInt6);
-        
-        Integer myInt7 = new Integer(38);
-        myTree.insertElement(myInt7, myInt7);
-
-        Integer myInt8 = new Integer(3);
-        myTree.insertElement(myInt8, myInt8);
-
-        Integer myInt9 = new Integer(53);
-        myTree.insertElement(myInt9, myInt9);
-
-        Integer myInt10 = new Integer(66);
-        myTree.insertElement(myInt10, myInt10);
-        
-        Integer myInt11 = new Integer(19);
-        myTree.insertElement(myInt11, myInt11);
-
-        Integer myInt12 = new Integer(23);
-        myTree.insertElement(myInt12, myInt12);
-        
-        Integer myInt13 = new Integer(24);
-        myTree.insertElement(myInt13, myInt13);
-
-        Integer myInt14 = new Integer(88);
-        myTree.insertElement(myInt14, myInt14);
-
-        Integer myInt15 = new Integer(1);
-        myTree.insertElement(myInt15, myInt15);
-
-        Integer myInt16 = new Integer(97);
-        myTree.insertElement(myInt16, myInt16);
-
-        Integer myInt17 = new Integer(94);
-        myTree.insertElement(myInt17, myInt17);
-
-        Integer myInt18 = new Integer(35);
-        myTree.insertElement(myInt18, myInt18);
-
-        Integer myInt19 = new Integer(51);
-        myTree.insertElement(myInt19, myInt19);
-        
-        Integer myInt20 = new Integer(24);
-        myTree.insertElement(myInt20, myInt20);
-        Integer myInt21 = new Integer(24);
-        myTree.insertElement(myInt21, myInt21);
-        
-        Integer myInt22 = new Integer(49);
-        myTree.insertElement(myInt22, myInt22);
-
+//        Integer myInt1 = new Integer(47);
+//        myTree.insertElement(myInt1, myInt1);
+//        Integer myInt2 = new Integer(83);
+//        myTree.insertElement(myInt2, myInt2);
+//        Integer myInt3 = new Integer(22);
+//        myTree.insertElement(myInt3, myInt3);
+//
+//        Integer myInt4 = new Integer(16);
+//        myTree.insertElement(myInt4, myInt4);
+//
+//        Integer myInt5 = new Integer(49);
+//        myTree.insertElement(myInt5, myInt5);
+//        
+//
+//        
+//        Integer myInt6 = new Integer(100);
+//        myTree.insertElement(myInt6, myInt6);
+//        
+//        Integer myInt7 = new Integer(38);
+//        myTree.insertElement(myInt7, myInt7);
+//
+//        Integer myInt8 = new Integer(3);
+//        myTree.insertElement(myInt8, myInt8);
+//
+//        Integer myInt9 = new Integer(53);
+//        myTree.insertElement(myInt9, myInt9);
+//
+//        Integer myInt10 = new Integer(66);
+//        myTree.insertElement(myInt10, myInt10);
+//        
+//        Integer myInt11 = new Integer(19);
+//        myTree.insertElement(myInt11, myInt11);
+//
+//        Integer myInt12 = new Integer(23);
+//        myTree.insertElement(myInt12, myInt12);
+//        
+//        Integer myInt13 = new Integer(24);
+//        myTree.insertElement(myInt13, myInt13);
+//
+//        Integer myInt14 = new Integer(88);
+//        myTree.insertElement(myInt14, myInt14);
+//
+//        Integer myInt15 = new Integer(1);
+//        myTree.insertElement(myInt15, myInt15);
+//
+//        Integer myInt16 = new Integer(97);
+//        myTree.insertElement(myInt16, myInt16);
+//
+//        Integer myInt17 = new Integer(94);
+//        myTree.insertElement(myInt17, myInt17);
+//
+//        Integer myInt18 = new Integer(35);
+//        myTree.insertElement(myInt18, myInt18);
+//
+//        Integer myInt19 = new Integer(51);
+//        myTree.insertElement(myInt19, myInt19);
+//        
+//        Integer myInt20 = new Integer(24);
+//        myTree.insertElement(myInt20, myInt20);
+//        Integer myInt21 = new Integer(24);
+//        myTree.insertElement(myInt21, myInt21);
+//        
+//        Integer myInt22 = new Integer(49);
+//        myTree.insertElement(myInt22, myInt22);
+          Integer myInt23 = new Integer(5);
+          myTree.insertElement(myInt23, myInt23);
+          Integer myInt24 = new Integer(10);
+          myTree.insertElement(myInt24, myInt24);
+          Integer myInt25 = new Integer(4);
+          myTree.insertElement(myInt25, myInt25);
+          Integer myInt26 = new Integer(6);
+          myTree.insertElement(myInt26, myInt26);
+          Integer myInt27 = new Integer(8);
+          myTree.insertElement(myInt27, myInt27);
+          Integer myInt28 = new Integer(11);
+//          myTree.insertElement(myInt28, myInt28);
+//          Integer myInt29 = new Integer(49);
+//          myTree.insertElement(myInt29, myInt29);
+//          Integer myInt30 = new Integer(49);
+//          myTree.insertElement(myInt30, myInt30);
         myTree.printAllElements();
+        myTree.removeElement(4);
         System.out.println("done");
+        myTree.printAllElements();
 
         /*
         myTree = new TwoFourTree(myComp);
@@ -279,12 +307,12 @@ public class TwoFourTree
         else if(rightTransferPossible(underNode)){
             rightTransfer(underNode);
         }
-        else if(rightFusionPossible(underNode)){
-            rightFusion(underNode);
-        }
-        else{
-            leftFusion(underNode);
-        }
+//        else if(rightFusionPossible(underNode)){
+//            rightFusion(underNode);
+//        }
+//        else{
+//            leftFusion(underNode);
+//        }
     }
     //TODO
     //write a left and right sib getter
@@ -293,6 +321,9 @@ public class TwoFourTree
     public boolean leftTransferPossible(TFNode current){
         //get size of left sibling node
         //check to make sure it is not a leftmost child
+        if(current.whatChildIsThis()-1<0) {
+                return false;
+            }
         TFNode sib  = current.getLeftSib();
         //there is not left sib
         if(sib == null){
@@ -301,13 +332,17 @@ public class TwoFourTree
                 }
         int numberOfItems = sib.getNumItems();
         //if the size of the left sibling node is not going to underflow if we take one
-        return (numberOfItems-1>0);
+        return ((numberOfItems-1)>0);
         // return true
         //else return false
     }
     public boolean rightTransferPossible(TFNode current){
         //check to see if the right sib exists and is less than 2
-       TFNode sib = current.getRightSib();
+       if(current.whatChildIsThis()+1>current.getMaxItems()) {
+                return false;
+            }
+        
+        TFNode sib = current.getRightSib();
        int numberOfItems = sib.getNumItems();
        return ((numberOfItems-1)>0);
     }
@@ -320,10 +355,41 @@ public class TwoFourTree
     }
     
     public void leftTransfer(TFNode node){
+        //TODO see what pointers we do not use here
+        //thought these may be useful
+        TFNode leftSib = node.getLeftSib();
+        TFNode parent = node.getParent();
+        Item tempItem = new Item();
+        //get the rightmost item of index of the left sib
+        Item leftMostSibItem=new Item();
+        leftMostSibItem = leftSib.removeItem(leftSib.getNumItems()-1);
+        //place the parent of the the current +1 as the new temp
+        Item parentHolder= new Item();
+        parentHolder =  parent.getItem(node.whatChildIsThis()+1);
+        //put the leftmost item inte the wchith+1 position
+        parent.insertItem(node.whatChildIsThis()+1, leftMostSibItem);
+        //put the parent value inside of the poor deleted node 
+        node.insertItem(0, parentHolder);
+        return;
         
     }
     public void rightTransfer(TFNode node){
-        
+        //TODO see what pointers we do not use here
+        //thought these may be useful
+        TFNode rightSib = node.getRightSib();
+        TFNode parent = node.getParent();
+        Item tempItem = new Item();
+        //get the leftmost item of index zero of the rigth sib
+        Item rightMostSibItem=new Item();
+        rightMostSibItem = rightSib.removeItem(0);
+        //place the parent of the the current +1 as the new temp
+        Item parentHolder= new Item();
+        parentHolder =  parent.getItem(node.whatChildIsThis()+1);
+        //put the leftmost item inte the wchith+1 position
+        parent.insertItem(node.whatChildIsThis()-1, rightMostSibItem);
+        //put the parent value inside of the poor deleted node 
+        node.insertItem(0, parentHolder);
+        return;
     }
     public void rightFusion(TFNode node){
         
