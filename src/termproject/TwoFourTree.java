@@ -299,17 +299,17 @@ public class TwoFourTree
                 System.out.println("no sib found");
                 return false;
                 }
-        int size = sib.getNumItems();
+        int numberOfItems = sib.getNumItems();
         //if the size of the left sibling node is not going to underflow if we take one
-        return (sib.getMaxItems()-1>0);
+        return (numberOfItems-1>0);
         // return true
         //else return false
     }
     public boolean rightTransferPossible(TFNode current){
         //check to see if the right sib exists and is less than 2
        TFNode sib = current.getRightSib();
-       int size = sib.getNumItems();
-       return ((size+1)==sib.getMaxItems());
+       int numberOfItems = sib.getNumItems();
+       return ((numberOfItems-1)>0);
     }
     public boolean rightFusionPossible(TFNode current){
         
