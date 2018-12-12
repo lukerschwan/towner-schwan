@@ -80,18 +80,11 @@ public class TwoFourTree
                 index = node.FFGTE(key, treeComp);
                 //check for tie case
                 if(treeComp.isEqual(key, node.getItem(index).key())){
-                    //node = node.getInorderSuccessor(index);
-                    //break;
-                    /*
-                    
-                    TFNode inOrderSuccessor = this.getChild(index + 1);
-                        while(!this.isExternal()){
-                            inOrderSuccessor = inOrderSuccessor.getChild(this.FFGTE(index, treeComp));
-                        }
-                        return inOrderSuccessor;
-                    */
+                    index++;
                 }
+                else{
                 node = node.getChild(index);
+                }
             }
             //actually insert item into the node
             index = node.FFGTE(key, treeComp);
@@ -181,6 +174,8 @@ public class TwoFourTree
 
         Integer myInt4 = new Integer(16);
         myTree.insertElement(myInt4, myInt4);
+        
+        myTree.printAllElements();
 
         Integer myInt5 = new Integer(49);
         myTree.insertElement(myInt5, myInt5);
