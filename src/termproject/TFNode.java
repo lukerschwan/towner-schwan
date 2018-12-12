@@ -160,6 +160,10 @@ public class TFNode {
         if(this.getParent()==null){
             return null;
         }
+        //check to make sure that the left sib is not the leftmost node
+        else if( this.whatChildIsThis()-1<this.MAX_ITEMS)  {
+            return null;
+        }
         else{
             //return the child of the parent at the index of the current minus one
             return(this.getParent().getChild(this.whatChildIsThis()-1));
@@ -168,8 +172,11 @@ public class TFNode {
     public TFNode getRightSib(){
         //make sure that the parent is not null
         //make sure that this is not the rigthmost node allready 
-        if(this.getParent()==null || this.getParent().whatChildIsThis()+1>this.getMaxItems()){
+        if(this.getParent()==null){
             return null;
+        }
+        else if( this.getParent().getChild(this.whatChildIsThis()+1)==null){
+           return null; 
         }
         else{
          //return the child of the current parent minus one
