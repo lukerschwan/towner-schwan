@@ -84,12 +84,12 @@ public class TwoFourTree
         Item temp = new Item(key, element);
         TFNode node = this.root();
         int index = 0;
+        size++;
         //if the tree is empty
         if (node == null) {
             node = new TFNode();
             node.addItem(index, temp);
             setRoot(node);
-            size++;
         }
         else {
             //go till we find the right external node
@@ -123,13 +123,11 @@ public class TwoFourTree
         
         Item middle = node.getItem(1);
          TFNode split = new TFNode();
-        size++;
         //root overflow case
         if(node == root()){
             TFNode newRoot = new TFNode();
             newRoot.addItem(0, middle);
             setRoot(newRoot);
-            size++;
             //split and fix pointers
             fixSplit(newRoot, node, split, 0);
             return;
