@@ -161,7 +161,7 @@ public class TFNode {
             return null;
         }
         //check to make sure that the left sib is not the leftmost node
-        else if( this.whatChildIsThis()-1<this.MAX_ITEMS)  {
+        else if( this.whatChildIsThis()-1<0)  {
             return null;
         }
         else{
@@ -175,7 +175,7 @@ public class TFNode {
         if(this.getParent()==null){
             return null;
         }
-        else if( this.getParent().getChild(this.whatChildIsThis()+1)==null){
+        else if( this.whatChildIsThis()+1>=this.MAX_ITEMS){
            return null; 
         }
         else{

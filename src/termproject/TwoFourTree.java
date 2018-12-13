@@ -62,6 +62,9 @@ public class TwoFourTree
         while(currNode != null){
             //index is the first greater than equal index
            int index = currNode.FFGTE(key, treeComp);
+//           if (index>currNode.getNumItems() && !currNode.isExternal()){
+//               currNode=currNode.getChild(currNode.
+//           }
            //if the element is equal to key then return the node's item's element
            if(treeComp.isEqual(currNode.getItem(index).element(),key)){
                return currNode;
@@ -269,6 +272,7 @@ public class TwoFourTree
 //          myTree.insertElement(myInt30, myInt30);
         myTree.printAllElements();
         myTree.removeElement(1);
+        myTree.removeElement(88);
         System.out.println("done");
         myTree.printAllElements();
 
@@ -309,7 +313,7 @@ public class TwoFourTree
 
     public void fixUnderflow(TFNode underNode){
         //base case
-        if(underNode.getNumItems()>0){
+        if(underNode.getNumItems()==0){
             return;
         }
         //it is a assumed that there has been an underflow at this point
@@ -378,9 +382,9 @@ public class TwoFourTree
         leftMostSibItem = leftSib.removeItem(leftSib.getNumItems()-1);
         //place the parent of the the current +1 as the new temp
         Item parentHolder= new Item();
-        parentHolder =  parent.getItem(node.whatChildIsThis()+1);
+        parentHolder =  parent.getItem(node.whatChildIsThis());
         //put the leftmost item inte the wchith+1 position
-        parent.insertItem(node.whatChildIsThis()+1, leftMostSibItem);
+        parent.replaceItem(node.whatChildIsThis(), leftMostSibItem);
         //put the parent value inside of the poor deleted node 
         node.insertItem(0, parentHolder);
         return;
@@ -393,13 +397,13 @@ public class TwoFourTree
         TFNode parent = node.getParent();
         Item tempItem = new Item();
         //get the leftmost item of index zero of the rigth sib
-        Item rightMostSibItem=new Item();
-        rightMostSibItem = rightSib.removeItem(0);
+        Item leftMostSibItem=new Item();
+        leftMostSibItem = rightSib.removeItem(0);
         //place the parent of the the current +1 as the new temp
         Item parentHolder= new Item();
-        parentHolder =  parent.getItem(node.whatChildIsThis()+1);
+        parentHolder =  parent.getItem(node.whatChildIsThis());
         //put the leftmost item inte the wchith+1 position
-        parent.insertItem(node.whatChildIsThis()-1, rightMostSibItem);
+        parent.replaceItem(node.whatChildIsThis(), leftMostSibItem);
         //put the parent value inside of the poor deleted node 
         node.insertItem(0, parentHolder);
         return;
