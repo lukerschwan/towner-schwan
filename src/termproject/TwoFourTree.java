@@ -363,11 +363,11 @@ public class TwoFourTree
         else if(rightTransferPossible(underNode)){
             rightTransfer(underNode);
         }
-        else if(rightFusionPossible(underNode)){
-//            rightFusion(underNode);
+        else if(leftFusionPossible(underNode)){
+            leftFusion(underNode);
         }
         else{
-            leftFusion(underNode);
+            rightFusion(underNode);
            }
     }
     //TODO
@@ -382,6 +382,7 @@ public class TwoFourTree
             }
         TFNode sib  = current.getLeftSib();
         //there is not left sib
+        //TODO delete this line this hsould not happen
         if(sib == null){
                 System.out.println("no sib found");
                 return false;
@@ -402,9 +403,9 @@ public class TwoFourTree
        int numberOfItems = sib.getNumItems();
        return ((numberOfItems-1)>0);
     }
-    public boolean rightFusionPossible(TFNode current){
+    public boolean leftFusionPossible(TFNode current){
         int index = current.whatChildIsThis();
-        return index < 4;
+        return index < 3;
     }
     
     public void leftTransfer(TFNode node){
@@ -412,7 +413,7 @@ public class TwoFourTree
         //thought these may be useful
         TFNode leftSib = node.getLeftSib();
         TFNode parent = node.getParent();
-        Item tempItem = new Item();
+        Item tempItem = null;
         //get the rightmost item of index of the left sib
         Item leftMostSibItem=new Item();
         leftMostSibItem = leftSib.removeItem(leftSib.getNumItems()-1);
