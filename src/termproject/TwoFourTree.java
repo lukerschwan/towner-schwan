@@ -365,7 +365,7 @@ public class TwoFourTree
         }
         else if(rightFusionPossible(underNode)){
 //            rightFusion(underNode);
-//        }
+        }
         else{
             leftFusion(underNode);
            }
