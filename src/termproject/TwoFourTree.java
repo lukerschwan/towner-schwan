@@ -63,7 +63,7 @@ public class TwoFourTree
             //index is the first greater than equal index
            int index = currNode.FFGTE(key, treeComp);
            //if the element is equal to key then return the node's item's element
-           if(treeComp.isEqual(currNode.getItem(index).element(),key)){
+           if( index < currNode.getNumItems() && treeComp.isEqual(currNode.getItem(index).key(),key)){
                return currNode;
            }
            else {
@@ -173,21 +173,54 @@ public class TwoFourTree
      */
     public Object removeElement(Object key) throws ElementNotFoundException {
         //find the element
-        TFNode element= (TFNode)findNode((int)key);
-        
-        if(element.FFGTE(key, treeComp)>=0){
-           Item returnableItem = new Item();
-           returnableItem = element.removeItem(element.FFGTE(key, treeComp));
-           fixUnderflow(element);
-           return returnableItem;
+        TFNode node= findNode(key);
+        int index= node.FFGTE(key, treeComp);
+        // am I a leaf
+        if(node.isExternal()){
+            
+            if(treeComp.isEqual(key,node.getItem(index).key())){
+                Item tempItem = new Item();
+                tempItem=node.removeItem(index);
+                fixUnderflow(node);
+                return tempItem;
+                
+            }
+            else{
+                throw new ElementNotFoundException("Element not found");
+            }
+            
         }
-        return null;
+        else{
+            //Item IOSItem = new Item();
+            Item tempNodeItem = null;
+            tempNodeItem = node.getItem(index);
+            TFNode IOS = inOrderSuccessor(node, index);
+            Item IOSItem=IOS.removeItem(0);
+            node.replaceItem(index, IOSItem);
+            fixUnderflow(IOS);
+            return tempNodeItem;
+        }
+        // if so, ffgte and check equal
+        // if not equal, throw exception
+        // if equal, removeElement and check underflow
+        // not leaf, find IOS
+        // remove item0 and replace in foundNode above
+        // check underflow
     }
 
+    
+    public TFNode inOrderSuccessor(TFNode node, int index){
+        TFNode IOS = node.getChild(index+1);
+        while(!IOS.isExternal()){
+            IOS=IOS.getChild(0);
+        }
+        return IOS;
+        
+    }
     public static void main(String[] args) {
         Comparator myComp = new IntegerComparator();
         TwoFourTree myTree = new TwoFourTree(myComp);
-
+//
 //        Integer myInt1 = new Integer(47);
 //        myTree.insertElement(myInt1, myInt1);
 //        Integer myInt2 = new Integer(83);
@@ -206,35 +239,35 @@ public class TwoFourTree
 //        Integer myInt6 = new Integer(100);
 //        myTree.insertElement(myInt6, myInt6);
 //        
-        Integer myInt7 = new Integer(38);
-        myTree.insertElement(myInt7, myInt7);
-
-        //Integer myInt8 = new Integer(3);
-        //myTree.insertElement(myInt8, myInt8);
-
-        Integer myInt9 = new Integer(53);
-        myTree.insertElement(myInt9, myInt9);
-
-        Integer myInt10 = new Integer(66);
-        myTree.insertElement(myInt10, myInt10);
-        
-        Integer myInt11 = new Integer(19);
-        myTree.insertElement(myInt11, myInt11);
-
-        Integer myInt12 = new Integer(23);
-        myTree.insertElement(myInt12, myInt12);
-        
-        Integer myInt13 = new Integer(24);
-        myTree.insertElement(myInt13, myInt13);
-
-        Integer myInt14 = new Integer(88);
-        myTree.insertElement(myInt14, myInt14);
-
-        Integer myInt15 = new Integer(1);
-        myTree.insertElement(myInt15, myInt15);
-
-        Integer myInt16 = new Integer(97);
-        myTree.insertElement(myInt16, myInt16);
+//        Integer myInt7 = new Integer(38);
+//        myTree.insertElement(myInt7, myInt7);
+//
+//        Integer myInt8 = new Integer(3);
+//        myTree.insertElement(myInt8, myInt8);
+//
+//        Integer myInt9 = new Integer(53);
+//        myTree.insertElement(myInt9, myInt9);
+//
+//        Integer myInt10 = new Integer(66);
+//        myTree.insertElement(myInt10, myInt10);
+//        
+//        Integer myInt11 = new Integer(19);
+//        myTree.insertElement(myInt11, myInt11);
+//
+//        Integer myInt12 = new Integer(23);
+//        myTree.insertElement(myInt12, myInt12);
+//        
+//        Integer myInt13 = new Integer(24);
+//        myTree.insertElement(myInt13, myInt13);
+//
+//        Integer myInt14 = new Integer(88);
+//        myTree.insertElement(myInt14, myInt14);
+//
+//        Integer myInt15 = new Integer(1);
+//        myTree.insertElement(myInt15, myInt15);
+//
+//        Integer myInt16 = new Integer(97);
+//        myTree.insertElement(myInt16, myInt16);
 //
 //        Integer myInt17 = new Integer(94);
 //        myTree.insertElement(myInt17, myInt17);
@@ -268,36 +301,37 @@ public class TwoFourTree
 //          myTree.insertElement(myInt29, myInt29);
 //          Integer myInt30 = new Integer(49);
 //          myTree.insertElement(myInt30, myInt30);
-        myTree.printAllElements();
-        myTree.removeElement(1);
-        myTree.removeElement(88);
-        System.out.println("done");
-        myTree.printAllElements();
+//        System.out.println("done");
+//        myTree.checkTree();
+//        
+//        myTree.printAllElements();
 
-        /*
         myTree = new TwoFourTree(myComp);
-        final int TEST_SIZE = 10000;
+        final int TEST_SIZE = 1000;
 
 
         for (int i = 0; i < TEST_SIZE; i++) {
             myTree.insertElement(new Integer(i), new Integer(i));
-            //          myTree.printAllElements();
-            //         myTree.checkTree();
-        }
-        System.out.println("removing");
-        for (int i = 0; i < TEST_SIZE; i++) {
-            int out = (Integer) myTree.removeElement(new Integer(i));
-            if (out != i) {
-                throw new TwoFourTreeException("main: wrong element removed");
-            }
-            if (i > TEST_SIZE - 15) {
-                myTree.printAllElements();
-            }
+            myTree.printAllElements();
+            myTree.checkTree();
         }
         
+        System.out.println("removing");
+//        for (int i = 0; i < TEST_SIZE; i++) {
+//            int out = (Integer) myTree.removeElement(new Integer(i));
+//            if (out != i) {
+//                throw new TwoFourTreeException("main: wrong element removed");
+//            }
+//            if (i > TEST_SIZE - 15) {
+//                myTree.printAllElements();
+//            }
+//        }
+        
         System.out.println("done");
-        */
+        
+    
     }
+    
 
     public void printAllElements() {
         int indent = 0;
@@ -311,7 +345,14 @@ public class TwoFourTree
 
     public void fixUnderflow(TFNode underNode){
         //base case
-        if(underNode.getNumItems()==0){
+        if(underNode.getNumItems()!=0){
+            return;
+        }
+        if (underNode == this.root()) {
+            treeRoot = underNode.getChild(0);
+            if (treeRoot != null) {
+                treeRoot.setParent(null);
+            }
             return;
         }
         //it is a assumed that there has been an underflow at this point
@@ -322,12 +363,12 @@ public class TwoFourTree
         else if(rightTransferPossible(underNode)){
             rightTransfer(underNode);
         }
-//        else if(rightFusionPossible(underNode)){
+        else if(rightFusionPossible(underNode)){
 //            rightFusion(underNode);
 //        }
-//        else{
-//            leftFusion(underNode);
-//        }
+        else{
+            leftFusion(underNode);
+           }
     }
     //TODO
     //write a left and right sib getter
