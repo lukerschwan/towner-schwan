@@ -364,11 +364,8 @@ public class TwoFourTree
        return ((numberOfItems-1)>0);
     }
     public boolean rightFusionPossible(TFNode current){
-        
-       return false; 
-    }
-    public boolean leftFusionPossible(TFNode current){
-        return false;
+        int index = current.whatChildIsThis();
+        return index < 4;
     }
     
     public void leftTransfer(TFNode node){
@@ -409,12 +406,46 @@ public class TwoFourTree
         return;
     }
     public void rightFusion(TFNode node){
-        TFNode rightNode=node.getRightSib();
-        
+        //get item at parent what child is this
+        int index = node.whatChildIsThis();
+        TFNode parent = node.getParent();
+        Item item = parent.getItem(index);
+        TFNode rightSib = node.getRightSib();
+        //insert into rightSib the parent item between me and right sib
+        rightSib.insertItem(0, item);
+        //add right sibling's item to node
+        node.addItem(1, rightSib.getItem(0));
+        //set child pointers
+        int i = 0;
+        TFNode child = node.getChild(i);
+        for(index = rightSib.getNumChildren(); child != null; index++){
+            rightSib.setChild(index, child);
+            child = node.getChild(++i);
+        }
+        //delete old node
+        parent.removeItem(node.whatChildIsThis());
         //call fix underflow on the parent node
+        fixUnderflow(parent);
     }
     public void leftFusion(TFNode node){
-        
+        //get item at parent what child is this
+        int index = node.whatChildIsThis();
+        TFNode parent = node.getParent();
+        Item item = parent.getItem(index - 1);
+        TFNode leftSib = node.getLeftSib();
+        //add parent item between me and leftSib to left sibling
+        leftSib.addItem(leftSib.getNumItems(), item);
+        //set child pointers
+        int i = 0;
+        TFNode child = node.getChild(i);
+        for(index = leftSib.getNumChildren(); child != null; index++){
+            leftSib.setChild(index, child);
+            child = node.getChild(++i);
+        }
+        //delete old node
+        parent.removeItem(node.whatChildIsThis());
+        //call fix underflow on the parent node
+        fixUnderflow(parent);
     }
     
    
