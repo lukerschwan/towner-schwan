@@ -179,7 +179,7 @@ public class TwoFourTree
         if(node.isExternal()){
             
             if(treeComp.isEqual(key,node.getItem(index).key())){
-                Item tempItem = new Item();
+                Item tempItem = null;
                 tempItem=node.removeItem(index);
                 fixUnderflow(node);
                 return tempItem;
@@ -307,25 +307,26 @@ public class TwoFourTree
 //        myTree.printAllElements();
 
         myTree = new TwoFourTree(myComp);
-        final int TEST_SIZE = 1000;
+        final int TEST_SIZE = 25;
 
 
         for (int i = 0; i < TEST_SIZE; i++) {
             myTree.insertElement(new Integer(i), new Integer(i));
-            myTree.printAllElements();
-            myTree.checkTree();
+            
         }
+        myTree.printAllElements();
+        myTree.checkTree();
         
         System.out.println("removing");
-//        for (int i = 0; i < TEST_SIZE; i++) {
-//            int out = (Integer) myTree.removeElement(new Integer(i));
-//            if (out != i) {
-//                throw new TwoFourTreeException("main: wrong element removed");
-//            }
-//            if (i > TEST_SIZE - 15) {
-//                myTree.printAllElements();
-//            }
-//        }
+        for (int i = 0; i < TEST_SIZE; i++) {
+            int out = (Integer) myTree.removeElement(new Integer(i));
+            if (out != i) {
+                throw new TwoFourTreeException("main: wrong element removed");
+            }
+            if (i > TEST_SIZE - 15) {
+                myTree.printAllElements();
+            }
+        }
         
         System.out.println("done");
         
@@ -364,7 +365,7 @@ public class TwoFourTree
             rightTransfer(underNode);
         }
         else if(rightFusionPossible(underNode)){
-//            rightFusion(underNode);
+           rightFusion(underNode);
         }
         else{
             leftFusion(underNode);
