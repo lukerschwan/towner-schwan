@@ -62,19 +62,17 @@ public class TwoFourTree
         while(currNode != null){
             //index is the first greater than equal index
            int index = currNode.FFGTE(key, treeComp);
-//           if (index>currNode.getNumItems() && !currNode.isExternal()){
-//               currNode=currNode.getChild(currNode.
-//           }
            //if the element is equal to key then return the node's item's element
            if(treeComp.isEqual(currNode.getItem(index).element(),key)){
                return currNode;
            }
            else {
+               
                currNode = currNode.getChild(index);
            }
-        }
-        return null;
     }
+      return null;
+      }
     
  
     /**
